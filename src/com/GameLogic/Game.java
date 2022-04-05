@@ -1,5 +1,4 @@
 package com.GameLogic;
-import com.Items.Item;
 import com.Players.Player;
 import com.Imports.ImportJSON;
 import com.Rooms.Room;
@@ -14,6 +13,7 @@ import java.util.*;
 // Definition of what is a game
 public class Game {
     private Player player;
+    Scanner in = new Scanner(System.in);
 
     ArrayList<Room> map = (ArrayList<Room>) ImportJSON.getMap();
 
@@ -30,26 +30,38 @@ public class Game {
         this.player = player;
     }
 
-//Can you refactor the system.in?
-//enum for accepted values
-//Starting hp and starting attack
-
-
-    // Method for creating a game
-    public boolean beginGame() throws IOException, InterruptedException {
-        Scanner in = new Scanner(System.in);
+    //Refactored the following methods in order to separate concerns. Could be refactored more but this
+    // is a starting point - Meri
+    public void printSplashScreen() throws IOException, InterruptedException {
         Printer.print(Story.beginGameText());
+    }
+
+    public void playerSetup(){
         String name = in.nextLine();
         Player user = new Player(name,100,15);
-        Scanner in2 = new Scanner(System.in);
-        System.out.println("Ok, " + user.getName() + " this isn't going to be an easy adventure are you ready?");
-        String startGame = in2.nextLine();
-        //Wrap acceptable values in an enum?
-        if ("start".equalsIgnoreCase(startGame) || "yes".equalsIgnoreCase(startGame)) {
-            setPlayer(user);
-            Player player = getPlayer();
-            player.setCurrentRoom(map.get(0));
-            System.out.println(getPlayer());
+        setPlayer(user);
+        Player player = getPlayer();
+        player.setCurrentRoom(map.get(0));
+        System.out.println("Ok, " + user.getName() + " this isn't going to be an easy adventure are you ready? (Type yes or y)");
+    }
+
+    public void printPlayerDetails(){
+        System.out.println(getPlayer());
+    }
+
+    public boolean checkIfPlayerReady(){
+        String response = in.nextLine();
+        if(response.equalsIgnoreCase("yes") || response.equalsIgnoreCase("y")){
+            printPlayerDetails();
+           return true;
+        }
+        return false;
+    }
+    // Method for creating a game
+    public boolean beginGame() throws IOException, InterruptedException {
+        printSplashScreen();
+        playerSetup();
+        if (checkIfPlayerReady()){
             return true;
         }
         else {
