@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c6f596e-3047-4150-9fb0-0799964967fa" name="Changes" comment="">
+    <list default="true" id="6c6f596e-3047-4150-9fb0-0799964967fa" name="Changes" comment="updating dev">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/JsonObjects/weapons.json" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/JsonObjects/weapons.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/Players/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/Players/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,10 +29,17 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="dev" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="default" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -77,6 +85,14 @@
       <option name="presentableId" value="Default" />
       <updated>1648173238158</updated>
     </task>
+    <task id="LOCAL-00001" summary="updating dev">
+      <created>1649108791647</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1649108791647</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -84,11 +100,27 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="Dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updating dev" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating dev" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

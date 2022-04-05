@@ -112,13 +112,26 @@ public class Player {
         return enemy;
     }
 
+    public void showPlayerDetails(){
+        System.out.println("Test");
+    }
+
+
+//This is the old toString I refactored to get rid of this format -> Player{name='William', hp=100, attack=15}
+//    @Override
+//    public String toString() {
+//        return "Player{" +
+//                "name='" + name + '\'' +
+//                ", hp=" + hp +
+//                ", attack=" + attack +
+//                '}';
+//    }
+
 
     @Override
     public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                ", hp=" + hp +
-                ", attack=" + attack +
-                '}';
+        return "Here are your players details:\n" +
+                "HP: " + hp + '\n' +
+                "Attack: " + attack;
     }
 }

@@ -30,7 +30,9 @@ public class Game {
         this.player = player;
     }
 
-
+//Can you refactor the system.in?
+//enum for accepted values
+//Starting hp and starting attack
 
 
     // Method for creating a game
@@ -38,12 +40,13 @@ public class Game {
         Scanner in = new Scanner(System.in);
         Printer.print(Story.beginGameText());
         String name = in.nextLine();
-        Player you = new Player(name,100,15);
+        Player user = new Player(name,100,15);
         Scanner in2 = new Scanner(System.in);
-        System.out.println("Ok, " + you.getName() + " this isn't going to be an easy adventure are you ready?");
+        System.out.println("Ok, " + user.getName() + " this isn't going to be an easy adventure are you ready?");
         String startGame = in2.nextLine();
+        //Wrap acceptable values in an enum?
         if ("start".equalsIgnoreCase(startGame) || "yes".equalsIgnoreCase(startGame)) {
-            setPlayer(you);
+            setPlayer(user);
             Player player = getPlayer();
             player.setCurrentRoom(map.get(0));
             System.out.println(getPlayer());
