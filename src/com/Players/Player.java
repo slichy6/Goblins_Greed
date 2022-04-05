@@ -11,9 +11,10 @@ import java.util.Collection;
 
 public class Player {
     private String name;
-    private long hp;
-    private long attack;
-    private Collection<Item> items = new ArrayList<>();
+    long hp; // hit points
+    long mp; // magic points
+    long attack; // attack power
+    private Collection<Item> items = new ArrayList<>(); // what is this? maybe inventory?
     private Room currentRoom;
     private Weapons equippedWeapon = null;
     private Armor equippedArmor = null;
