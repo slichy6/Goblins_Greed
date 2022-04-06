@@ -1,6 +1,6 @@
 package com.Items;
 
-public class Armor extends Item{
+public class Armor extends Item implements java.io.Serializable{
     private long defence;
     public Armor(String name, String desc, long value, long defence) {
         super(name, desc, value);

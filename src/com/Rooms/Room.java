@@ -10,7 +10,7 @@ import com.Imports.ImportJSON;
 import com.Players.Player;
 import org.json.simple.parser.ParseException;
 
-public class Room {
+public class Room implements java.io.Serializable{
   private String name;
   private String desc;
   private Collection<Item> items = new ArrayList<>();

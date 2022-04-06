@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class BattleMechanics {
+public class BattleMechanics implements java.io.Serializable{
 
     public static void fight(String enemy,Player player) throws IOException, ParseException {
 

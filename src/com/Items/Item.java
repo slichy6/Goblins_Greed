@@ -1,6 +1,6 @@
 package com.Items;
 
-public class Item {
+public class Item implements java.io.Serializable{
     private String name;
     private String desc;
     private long value;

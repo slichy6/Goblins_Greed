@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PlayerMechanics {
+public class PlayerMechanics implements java.io.Serializable{
 
     public static void moveRoom(String location, Game game) throws IOException, ParseException, InterruptedException {
         Player player = game.getPlayer();

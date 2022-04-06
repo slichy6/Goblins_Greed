@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-public class Player {
+public class Player implements java.io.Serializable{
     private String name;
     long hp; // hit points
     long mp; // magic points
