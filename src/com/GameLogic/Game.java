@@ -8,14 +8,18 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 // Definition of what is a game
 public class Game {
     private Player player;
     Scanner in = new Scanner(System.in);
-
     ArrayList<Room> map = (ArrayList<Room>) ImportJSON.getMap();
+    final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+
 
 
     // Constructor for an instance of the game
@@ -70,6 +74,38 @@ public class Game {
 
     }
 
+    public void restartGame() throws InterruptedException, IOException {
+        System.out.println("Are you sure you want to restart");
+        String response = in.nextLine();
+        if(response.equalsIgnoreCase("yes") || response.equalsIgnoreCase("y")){
+            timer.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
+            Thread.sleep(6000);
+            beginGame();
+        }else {
+            System.out.println("Glad you chose to keep playing!");
+            Thread.sleep(2000);
+            System.out.println("Lets keep playing");
+            Thread.sleep(2000);
+        }
+
+    }
+
+
+    //Object for timer on game restart -Meri
+    final Runnable runnable = new Runnable() {
+        int countdownStarter = 5;
+        @Override
+        public void run() {
+            System.out.println(countdownStarter);
+            countdownStarter--;
+
+            if(countdownStarter < 1){
+                System.out.println("Restarting game now");
+                timer.shutdown();
+            }
+        }
+    };
+
     //Method for running the game
 
     public void playGame(Player player1) throws IOException, ParseException, InterruptedException {
@@ -83,7 +119,9 @@ public class Game {
             if ("quit".equalsIgnoreCase(location[0])) {
                 Printer.print(Story.quitMessage());
                 System.exit(130);
-            } else if ("help".equalsIgnoreCase(location[0]) || "h".equalsIgnoreCase(location[0])) {
+            } else if ("restart".equalsIgnoreCase(location[0]) || "r".equalsIgnoreCase(location[0])){
+              restartGame();
+            }else if ("help".equalsIgnoreCase(location[0]) || "h".equalsIgnoreCase(location[0])) {
                 Printer.print(Story.tutorial());
 
             } else if ("stats".equalsIgnoreCase(location[0])) {
