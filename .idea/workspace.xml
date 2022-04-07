@@ -11,7 +11,15 @@
   <component name="ChangeListManager">
     <list default="true" id="6c6f596e-3047-4150-9fb0-0799964967fa" name="Changes" comment="menu refactor, AB#418">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/BattleMechanics.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/BattleMechanics.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/Imports/ImportJSON.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/Imports/ImportJSON.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/Players/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/Players/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/GameLogic/BattleMechanics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/GameLogic/BattleMechanics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/Imports/ImportJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/Imports/ImportJSON.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/Players/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/Players/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/Players/PlayerLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/Players/PlayerLevel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,13 +40,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="dev" />
-      </list>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

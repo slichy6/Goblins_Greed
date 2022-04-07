@@ -35,6 +35,10 @@ public class BattleMechanics {
         }
     }
 
+//    public static boolean playerRun(boolean cantRun) {
+//
+//    }
+
     public static List<Player> checkFight(Player player,Player enemy) throws IOException, ParseException {
         if(player.getHp() <= 0) {
             System.out.println("You have died!");
