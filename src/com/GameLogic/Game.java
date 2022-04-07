@@ -42,7 +42,7 @@ public class Game {
 
     public void playerSetup(){
         String name = in.nextLine();
-        Player user = new Player(name,100,15);
+        Player user = new Player(name,110, 20);
         setPlayer(user);
         Player player = getPlayer();
         player.setCurrentRoom(map.get(0));
