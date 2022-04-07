@@ -4,13 +4,13 @@ public class PlayerLevel implements java.io.Serializable{
 
     public static int lastLevel;
 
-    private final int lv;
+    private final long lv;
     private final long attack;
     private final long hp;
     private final long mp;
-    private final int xp;
+    private final long xp;
 
-    public PlayerLevel(int lv, long attack, long hp, long mp, int xp) {
+    public PlayerLevel(long lv, long attack, long hp, long mp, long xp) {
         this.lv = lv;
         this.attack = attack;
         this.hp = hp;
@@ -28,7 +28,7 @@ public class PlayerLevel implements java.io.Serializable{
         xp = Integer.parseInt(args[4].trim());
     }
 
-    public int getLv() {
+    public long getLv() {
         return lv;
     }
 
@@ -44,7 +44,7 @@ public class PlayerLevel implements java.io.Serializable{
         return mp;
     }
 
-    public int getXp() {
+    public long getXp() {
         return xp;
     }
 
