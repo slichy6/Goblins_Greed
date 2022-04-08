@@ -15,8 +15,14 @@ import java.util.concurrent.TimeUnit;
 
 // Definition of what is a game
 public class Game implements Serializable{
+    private Player player = new Player();
+    final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
     static Game game;
+    Scanner in = new Scanner(System.in);
+    ArrayList<Room> map = (ArrayList<Room>) ImportJSON.getMap();
 
+
+    // Not sure why this is relevant, will look into it -Meri
     static {
         try {
             game = new Game();
@@ -27,12 +33,6 @@ public class Game implements Serializable{
         }
 
     }
-
-    private Player player;
-    Scanner in = new Scanner(System.in);
-    ArrayList<Room> map = (ArrayList<Room>) ImportJSON.getMap();
-    final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
-
 
 
     // Constructor for an instance of the game
@@ -145,13 +145,26 @@ public class Game implements Serializable{
         }
     }
 
+    public void showPlayerDetails(){
+        System.out.println("\n" + player.getName() + " is at the " + player.getCurrentRoomName());
+    }
+
+    public void showLocationDescription(){
+        System.out.println(player.showCurrentRoomDesc());
+    }
+
+    public void playerIntro(){
+        Player player = getPlayer();
+        player.setItems(player.getItems());
+        showPlayerDetails();
+        showLocationDescription();
+    }
+
 
     //Method for running the game
 
-    public void playGame(Player player1) throws IOException, ParseException, InterruptedException {
-        player1.setItems(player1.getItems());
-        System.out.println("\n" + player1.getName() + " is at the " + player1.getCurrentRoom().getName());
-        System.out.println(player1.getCurrentRoom().getDesc());
+    public void playGame() throws IOException, ParseException, InterruptedException {
+        playerIntro();
         Scanner in = new Scanner(System.in);
         Printer.print(Story.promptPlayerMessage());
         String[] location = in.nextLine().split(" ");
@@ -183,11 +196,11 @@ public class Game implements Serializable{
             else if("look".equalsIgnoreCase(location[0]) && "map".equalsIgnoreCase(location[1])){
                 PlayerMechanics.lookAtMap(this);
             }else if ("look".equalsIgnoreCase(location[0])) {
-                PlayerMechanics.lookItem(location[1], player1.getCurrentRoom().getItems(),player1.getItems());
+                PlayerMechanics.lookItem(location[1], player.getCurrentRoom().getItems(),player.getItems());
             } else if ("get".equalsIgnoreCase(location[0])) {
-                PlayerMechanics.getItem(location[1], player1.getCurrentRoom().getItems(), player1.getItems());
+                PlayerMechanics.getItem(location[1], player.getCurrentRoom().getItems(), player.getItems());
             } else if ("drop".equalsIgnoreCase(location[0])) {
-                PlayerMechanics.dropItem(location[1], player1.getCurrentRoom().getItems(), player1.getItems());
+                PlayerMechanics.dropItem(location[1], player.getCurrentRoom().getItems(), player.getItems());
             }
             else if ("equip".equalsIgnoreCase(location[0])) {
                 if(PlayerMechanics.checkInstance(getPlayer(),location[1])) {
@@ -199,10 +212,10 @@ public class Game implements Serializable{
                 PlayerMechanics.checkInventory(getPlayer());
             } else {
                 Printer.print(Story.invalidEntryMessage2());
-                playGame(player1);
+                playGame();
             }
         } catch (IndexOutOfBoundsException e) {
-            playGame(player1);
+            playGame();
         }
     }
 

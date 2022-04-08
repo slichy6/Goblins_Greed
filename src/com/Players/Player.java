@@ -214,7 +214,9 @@ public class Player implements java.io.Serializable{
     private Armor equippedArmor = null;
 
 
+public Player(){
 
+}
     public Player(String name, long hp, long attack) {
         setName(name);
         setHp(hp);
@@ -245,6 +247,8 @@ public class Player implements java.io.Serializable{
     public Room getCurrentRoom() {
         return currentRoom;
     }
+
+
 
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
@@ -315,5 +319,17 @@ public class Player implements java.io.Serializable{
                 ", hp=" + hp +
                 ", attack=" + attack +
                 '}';
+    }
+
+/*
+*   Refactored methods to make the methods more readable
+* */
+    //Adding this to simplify the room name might refactor other accessors later - Meri
+    public String getCurrentRoomName(){
+        return currentRoom.getName();
+    }
+
+    public String showCurrentRoomDesc(){
+        return currentRoom.getDesc();
     }
 }

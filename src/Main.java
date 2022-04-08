@@ -37,12 +37,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ParseException, InterruptedException {
         Game newGame = new Game();
-
         boolean startGame = newGame.beginGame();
-        while (true) {
-
+        while (startGame) {
             if (startGame) {
-                newGame.playGame(newGame.getPlayer());
+                newGame.playGame();
             } else {
                 break;
             }
