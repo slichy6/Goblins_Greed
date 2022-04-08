@@ -9,18 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c6f596e-3047-4150-9fb0-0799964967fa" name="Changes" comment="updating from dev">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/group5_goblin_greed_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/group5_goblin_greed_jar.xml" afterDir="false" />
+    <list default="true" id="6c6f596e-3047-4150-9fb0-0799964967fa" name="Changes" comment="refactoring game logic, AB#529 AB#530">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/group5_goblin_greed_jar/group5-goblin-greed.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/group5_goblin_greed_jar/group5-goblin-greed.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameBoard/characters/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameBoard/characters/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/BattleMechanics.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/BattleMechanics.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/Game$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/GameLogic/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/Players/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/group5-goblin-greed/com/Players/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/GameLogic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/GameLogic/PlayerMechanics.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/GameLogic/PlayerMechanics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/Players/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/Players/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +146,21 @@
       <option name="project" value="LOCAL" />
       <updated>1649347198788</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refactoring game logic, AB#529 AB#530">
+      <created>1649438616032</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1649438616032</updated>
+    </task>
+    <task id="LOCAL-00004" summary="refactoring game logic, AB#529 AB#530">
+      <created>1649438689558</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1649438689558</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,43 +190,10 @@
     <MESSAGE value="restart game, AB#528" />
     <MESSAGE value="save and load game, AB#529 AB#530" />
     <MESSAGE value="updating from dev" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating from dev" />
+    <MESSAGE value="refactoring game logic, AB#529 AB#530" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring game logic, AB#529 AB#530" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/GameLogic/Game.java</url>
-          <line>122</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/GameLogic/Game.java</url>
-          <line>123</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/GameLogic/Game.java</url>
-          <line>124</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/GameLogic/Game.java</url>
-          <line>125</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/GameLogic/Game.java</url>
-          <line>126</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/GameLogic/Game.java</url>
-          <line>127</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="java.io.ObjectOutputStream$BlockDataOutputStream" memberName="out" />
