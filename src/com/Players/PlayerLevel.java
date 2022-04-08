@@ -1,6 +1,6 @@
 package com.Players;
 
-public class PlayerLevel {
+public class PlayerLevel implements java.io.Serializable{
 
     public static int lastLevel;
 

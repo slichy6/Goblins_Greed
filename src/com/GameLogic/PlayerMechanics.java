@@ -15,14 +15,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PlayerMechanics {
+public class PlayerMechanics implements java.io.Serializable{
 
     public static void moveRoom(String location, Game game) throws IOException, ParseException, InterruptedException {
         Player player = game.getPlayer();
         List<Room> rooms = game.map.stream().filter(room -> room.getName().equalsIgnoreCase(location)).collect(Collectors.toList());
         if (rooms.size() == 0) {
             Printer.print(Story.noRoomMessage());
-            game.playGame(game.getPlayer());
+            game.playGame();
         }
         player.setCurrentRoom(rooms.get(0));
     }

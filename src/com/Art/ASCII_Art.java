@@ -1,6 +1,6 @@
 package com.Art;
 
-public class ASCII_Art {
+public class ASCII_Art implements java.io.Serializable{
     public static StringBuilder title_screen_image(){
         StringBuilder str = new StringBuilder("\n");
         str.append("   ▄██████▄   ▄██████▄  ▀█████████▄   ▄█        ▄█  ███▄▄▄▄      ▄████████ \n");

@@ -14,7 +14,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ImportJSON {
+public class ImportJSON implements java.io.Serializable{
 
     public static Collection<Item> getItems() throws IOException, ParseException {
         InputStreamReader isr = new InputStreamReader(getFileFromResourceAsStream("com/JsonObjects/items.json"));
