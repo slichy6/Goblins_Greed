@@ -12,9 +12,15 @@ public class Player extends Characters{
     GamePanel gp;
     KeyHandler keyH;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
+
+        screenX = 100;
+        screenY = 100;
 
         setDefaultValues();
         getPlayerImage();
@@ -22,8 +28,8 @@ public class Player extends Characters{
 
     public void setDefaultValues(){
         //start position
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 2;
+        worldY = gp.tileSize * 2;
         speed = 4;
         direction = "down";
     }
@@ -49,19 +55,19 @@ public class Player extends Characters{
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
             if(keyH.upPressed == true){
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             }
             else if(keyH.downPressed == true){
                 direction = "down";
-                y += speed;
+                worldY += speed;
             }
             else if(keyH.rightPressed == true){
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
             else if(keyH.leftPressed == true){
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             }
             spriteCounter++;
             if(spriteCounter > 20){
@@ -118,6 +124,6 @@ public class Player extends Characters{
                 }
                 break;            
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
 }
