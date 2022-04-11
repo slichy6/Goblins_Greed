@@ -7,6 +7,9 @@ import com.Story.Story;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -15,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 
 // Definition of what is a game
 public class Game implements Serializable{
-    private static Player player = new Player();
     final ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
     final Runnable runnable = new Runnable() {
         int countdownStarter = 5;
@@ -30,12 +32,15 @@ public class Game implements Serializable{
             }
         }
     };
-    static Game game;
+    private static Player player = new Player();
+
+
     Scanner in = new Scanner(System.in);
     ArrayList<Room> map = (ArrayList<Room>) ImportJSON.getMap();
-    //Object for timer on game restart -Meri
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
 
+    static Game game;
 
     // Not sure why this is relevant, will look into it -Meri
     static {
@@ -167,13 +172,20 @@ public class Game implements Serializable{
         }
     }
 
+
+
+
     public static void saveGame(){
+
         try{
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("savedGame"));
+            System.out.println("What do you want to name this save file?");
+            Scanner in = new Scanner(System.in);
+            String response = in.nextLine();
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(response));
             oos.writeObject(player);
             oos.flush();
             oos.close();
-            System.out.println("Game saved");
+            System.out.println("Game Saved");
             game.checkIfPlayerContinue();
 
         }catch (Exception e){
@@ -182,9 +194,13 @@ public class Game implements Serializable{
         }
     }
 
+
     public static void loadGame(){
         try{
-            FileInputStream fis = new FileInputStream("savedGame");
+            System.out.println("What is the name of the file you want to load?");
+            Scanner in = new Scanner(System.in);
+            String response = in.nextLine();
+            FileInputStream fis = new FileInputStream(response);
             ObjectInputStream ois = new ObjectInputStream(fis);
             player = (Player) ois.readObject();
             ois.close();
@@ -248,6 +264,16 @@ public class Game implements Serializable{
         this.player = player;
     }
 
+    //TODO
+    // add date saved
+    // pull it from a date variable
+    /*      DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy at HH:mm")
+     *        LocalDateTime now = LocalDateTime.now();
+     *        System.out.println(now);
+     * */
 
+    //TODO
+    // See if you can send the files to a directory so you list all the files in a folder so the user
+    // can see all the saved games they have available
 
 }
