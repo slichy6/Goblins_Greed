@@ -25,7 +25,7 @@ public class Game implements Serializable{
             countdownStarter--;
 
             if(countdownStarter < 1){
-                System.out.println("Restarting game now");
+//                System.out.println("Restarting game now");
                 timer.shutdown();
             }
         }
@@ -54,12 +54,22 @@ public class Game implements Serializable{
     public Game() throws IOException, ParseException {
     }
 
-    public Player getPlayer() {
-        return player;
+    // Method for creating a game
+    public boolean beginGame() throws IOException, InterruptedException {
+        printSplashScreen();
+        playerSetup();
+        if (checkIfPlayerReady()){
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void playGame() throws IOException, ParseException, InterruptedException {
+        playerIntro();
+        gameEngine();
     }
 
     public void gameEngine() throws IOException, InterruptedException, ParseException {
@@ -117,22 +127,17 @@ public class Game implements Serializable{
         }
     }
 
-    //Method for running the game
-
-    public void playGame() throws IOException, ParseException, InterruptedException {
-        playerIntro();
-        gameEngine();
-    }
 
 
-
-
-
-
-    //Refactored the following methods in order to separate concerns. Could be refactored more but this
-    // is a starting point - Meri
     public void printSplashScreen() throws IOException, InterruptedException {
         Printer.print(Story.beginGameText());
+    }
+
+    public void playerIntro(){
+        Player player = getPlayer();
+        player.setItems(player.getItems());
+        showPlayerDetails();
+        showLocationDescription();
     }
 
     public void playerSetup(){
@@ -144,20 +149,15 @@ public class Game implements Serializable{
         System.out.println("Ok, " + user.getName() + " this isn't going to be an easy adventure are you ready? (Type yes or y)");
     }
 
-    public void printPlayerDetails(){
-        System.out.println(getPlayer());
-    }
-
-
-
-
 
     public void restartGame() throws InterruptedException, IOException {
         System.out.println("Are you sure you want to restart");
         String response = in.nextLine();
         if(response.equalsIgnoreCase("yes") || response.equalsIgnoreCase("y")){
             timer.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
-            Thread.sleep(6000);
+            Thread.sleep(5010);
+            System.out.println("Restarting game now");
+            Thread.sleep(2000);
             beginGame();
         }else {
             System.out.println("Glad you chose to keep playing!");
@@ -165,7 +165,6 @@ public class Game implements Serializable{
             System.out.println("Lets keep playing");
             Thread.sleep(2000);
         }
-
     }
 
     public static void saveGame(){
@@ -175,6 +174,8 @@ public class Game implements Serializable{
             oos.flush();
             oos.close();
             System.out.println("Game saved");
+            game.checkIfPlayerContinue();
+
         }catch (Exception e){
             System.out.println("Serialization Error! Can't save data.\n"
                     + e.getClass() + ": " + e.getMessage() + "\n");
@@ -204,11 +205,8 @@ public class Game implements Serializable{
         System.out.println(player.showCurrentRoomDesc());
     }
 
-    public void playerIntro(){
-        Player player = getPlayer();
-        player.setItems(player.getItems());
-        showPlayerDetails();
-        showLocationDescription();
+    public void printPlayerDetails(){
+        System.out.println(getPlayer());
     }
 
     public boolean checkIfPlayerReady(){
@@ -219,17 +217,35 @@ public class Game implements Serializable{
         }
         return false;
     }
-    // Method for creating a game
-    public boolean beginGame() throws IOException, InterruptedException {
-        printSplashScreen();
-        playerSetup();
-        if (checkIfPlayerReady()){
-            return true;
-        }
-        else {
-            return false;
-        }
 
+    public boolean checkIfPlayerContinue() throws InterruptedException {
+        System.out.println("Do you want to continue or exit\n" +
+                "Press 1 to continue or 2 to exit");
+        String response = in.nextLine();
+        if(response.equalsIgnoreCase("1")){
+            System.out.println("Lets continue");
+            Thread.sleep(2000);
+            return true;
+
+        }else if(response.equalsIgnoreCase("2")){
+            System.out.println("See you soon");
+            timer.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
+            Thread.sleep(5010);
+            System.out.println("Game ended");
+            System.exit(130);
+        }
+        return false;
+    }
+
+
+
+    //Accessors and Mutators
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
 
