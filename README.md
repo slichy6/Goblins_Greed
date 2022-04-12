@@ -1,2 +1,4 @@
-# group5-goblin-greed
-Group 5 Team Project
+#goblin-greed
+
+2D adventure game created for Capstone project with TLG learning
+
