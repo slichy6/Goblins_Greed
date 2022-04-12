@@ -22,6 +22,8 @@ public class Player extends Characters{
         screenX = 100;
         screenY = 100;
 
+        solidArea = new Rectangle(8, 16, 32, 32);
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -55,20 +57,42 @@ public class Player extends Characters{
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
             if(keyH.upPressed == true){
                 direction = "up";
-                worldY -= speed;
             }
+
             else if(keyH.downPressed == true){
                 direction = "down";
-                worldY += speed;
             }
+
             else if(keyH.rightPressed == true){
                 direction = "right";
-                worldX += speed;
             }
+
             else if(keyH.leftPressed == true){
                 direction = "left";
-                worldX -= speed;
             }
+
+            //CHECK TILE COLLISION
+            collisionOn = false;
+            gp.checker.checkTile(this);
+
+            //if collision is false, then player can move
+            if(collisionOn == false){
+
+                switch(direction){
+                    case "up": worldY -= speed;
+                        break;
+
+                    case "down": worldY += speed;
+                        break;
+
+                    case "right": worldX += speed;
+                        break;
+
+                    case "left": worldX -= speed;
+                        break;    
+                }
+            }
+
             spriteCounter++;
             if(spriteCounter > 20){
                 if(spriteNum == 1){

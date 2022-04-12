@@ -1,6 +1,5 @@
 package main;
 import javax.swing.JPanel;
-// import main.KeyHandler;
 import characters.Player;
 import tile.TileManager;
 
@@ -29,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;  //starts and stops game clock
+    public CollisionChecker checker = new CollisionChecker(this);
     public Player player = new Player(this, keyH);
 
     public GamePanel(){
