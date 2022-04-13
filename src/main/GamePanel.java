@@ -1,6 +1,7 @@
 package main;
 import javax.swing.JPanel;
 import characters.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import java.awt.*;
@@ -29,7 +30,11 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;  //starts and stops game clock
     public CollisionChecker checker = new CollisionChecker(this);
+    public ObjectSetter oSetter = new ObjectSetter(this);
     public Player player = new Player(this, keyH);
+    //how many objects you can display at one time
+    public SuperObject obj[] = new SuperObject[20];
+
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -37,6 +42,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+    }
+
+    public void setUpObjects(){
+
+        oSetter.setObject();
     }
 
     public void startGameThread(){
@@ -78,8 +88,17 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D)g;
 
+        //draws tiles
         tileM.draw(g2);
+
+        //draws objects
+        for(int i = 0; i < obj.length; i++){
+            if(obj[i] != null){
+                obj[i].draw(g2, this);
+            }
+        }
         
+        //draws the goblin
         player.repaint(g2);
 
         g2.dispose();

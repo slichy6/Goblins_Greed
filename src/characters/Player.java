@@ -23,6 +23,8 @@ public class Player extends Characters{
         screenY = 100;
 
         solidArea = new Rectangle(8, 16, 32, 32);
+        // solidAreaDefaultX = solidArea.x;
+        // solidAreaDefaultY = solidArea.y;
 
         setDefaultValues();
         getPlayerImage();
@@ -74,6 +76,7 @@ public class Player extends Characters{
             //CHECK TILE COLLISION
             collisionOn = false;
             gp.checker.checkTile(this);
+            // gp.checker.checkObject(this, true);
 
             //if collision is false, then player can move
             if(collisionOn == false){
