@@ -1,6 +1,6 @@
 package main;
 import javax.swing.JPanel;
-import characters.Player;
+import characters.*;
 import object.SuperObject;
 import tile.TileManager;
 
@@ -31,6 +31,8 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;  //starts and stops game clock
     public CollisionChecker checker = new CollisionChecker(this);
     public ObjectSetter oSetter = new ObjectSetter(this);
+    public UI ui = new UI(this);
+
     public Player player = new Player(this, keyH);
     //how many objects you can display at one time
     public SuperObject obj[] = new SuperObject[20];
@@ -100,6 +102,9 @@ public class GamePanel extends JPanel implements Runnable {
         
         //draws the goblin
         player.repaint(g2);
+
+        //UI
+        ui.draw(g2);
 
         g2.dispose();
     }

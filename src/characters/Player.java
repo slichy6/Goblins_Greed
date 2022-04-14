@@ -5,7 +5,6 @@ import main.KeyHandler;
 import java.awt.*;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
-import java.sql.SQLOutput;
 
 import javax.imageio.ImageIO;
 
@@ -15,9 +14,9 @@ public class Player extends Characters{
 
     public final int screenX;
     public final int screenY;
-    int hasTreasure = 0;
-    int hasWeapon = 0;
-    int hasArmor = 0;
+    public int hasTreasure = 0;
+    public int hasWeapon = 0;
+    public int hasArmor = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;

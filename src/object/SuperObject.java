@@ -2,7 +2,6 @@ package object;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
 import main.GamePanel;
 
 public class SuperObject {
