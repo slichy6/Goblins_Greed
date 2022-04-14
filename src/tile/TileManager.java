@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 
 import javax.imageio.ImageIO;
 
-import main.GamePanel;
+import main.*;
 
 public class TileManager{
 
