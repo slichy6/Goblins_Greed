@@ -147,8 +147,13 @@ public class Player extends Characters{
 
     public void interactNPC(int i) {
         if(i != 999) {
-            System.out.println("You're hitting the NPC");
+
+            if(gp.keyH.enterPressed){
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enterPressed = false;
     }
 
     public void repaint (Graphics2D g2){
