@@ -14,7 +14,7 @@ public class Characters {
     public int speed;
 
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public String direction;
+    public String direction = "down";
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -22,10 +22,15 @@ public class Characters {
     public Rectangle solidArea = new Rectangle(1,2,46,46);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
     public int actionLockCounter = 0;
-    String dialogues[] = new String[40];
+    String[] dialogues = new String[40];
     int dialogueIndex = 0;
-
+    public BufferedImage image, image2, image3;
+    public String name;
+    public boolean collision = false;
+    public int type; //0 playher 1 npc 2 monster
     // Character Stats
 
     public int maxLife;
@@ -133,7 +138,18 @@ public class Characters {
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkPLayer(this);
+        gp.cChecker.checkCharacter(this, gp.npc);
+        gp.cChecker.checkCharacter(this, gp.monster);
+        boolean contactPlayer = gp.cChecker.checkPLayer(this);
+
+        if(this.type == 2 && contactPlayer == true) {
+            if(gp.player.invincible == false) {
+                // damage
+                gp.player.life -= 1;
+                gp.player.invincible = true;
+            }
+
+        }
 
         if(collisionOn == false) {
 

@@ -27,14 +27,14 @@ public class Player extends Characters{
         screenY = 100;
 
         solidArea = new Rectangle();
-        solidArea.x = 1;
-        solidArea.y = 1;
+        solidArea.x = 8;
+        solidArea.y = 16;
 
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
-        solidArea.width = 46;
-        solidArea.height = 46;
+        solidArea.width = 32;
+        solidArea.height = 32;
 
         setDefaultValues();
         getPlayerImage();
@@ -42,8 +42,8 @@ public class Player extends Characters{
 
     public void setDefaultValues(){
         //start position
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 21;
+        worldX = gp.tileSize * 2;
+        worldY = gp.tileSize * 2;
         speed = 4;
         direction = "down";
 
@@ -97,9 +97,19 @@ public class Player extends Characters{
         }
             if(moving == true){
 
+
                 // check npc collision
                 int npcIndex = gp.cChecker.checkCharacter(this, gp.npc);
                 interactNPC(npcIndex);
+
+                // check monster collision
+                int monsterIndex = gp.cChecker.checkCharacter(this, gp.monster);
+                contactMonster(monsterIndex);
+
+                // check event status
+                gp.eHandler.checkEvent();
+
+                gp.keyH.enterPressed = false;
 
                 //if collision is false, then player can move
                 if(collisionOn == false){
@@ -136,6 +146,14 @@ public class Player extends Characters{
                     pixelCounter = 0;
                 }
             }
+
+            if(invincible == true){  // TODO TEST THIS
+                invincibleCounter++;
+                if(invincibleCounter > 60) {
+                    invincible = false;
+                    invincibleCounter = 0;
+                }
+            }
         }
 
     public void pickUpObject (int i) {
@@ -153,10 +171,18 @@ public class Player extends Characters{
                 gp.npc[i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
     }
 
-    public void repaint (Graphics2D g2){
+    public void contactMonster(int i){
+        if(i != 999){
+            if(invincible = false) {
+                life -= 1;
+                invincible = true;
+            }
+        }
+    }
+
+    public void draw (Graphics2D g2){
             // g2.setColor(Color.GREEN);
             // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
         BufferedImage image = null;

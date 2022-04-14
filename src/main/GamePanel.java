@@ -7,6 +7,10 @@ import tile.*;
 
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     //screen settings
@@ -35,14 +39,16 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public EventHandler eHandler = new EventHandler(this);
 
-    Sound sound = new Sound();
     Thread gameThread;  //starts and stops game clock
 
     // Character and Objects
     public Player player = new Player(this, keyH);
-    public SuperObject[] obj = new SuperObject[10];
+    public Characters[] obj = new Characters[10];
     public Characters[] npc = new Characters[10];
+    public Characters[] monster = new Characters[20];
+    ArrayList<Characters> characterList = new ArrayList<>();
 
     // Game States
     public int gameState;
@@ -62,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         aSetter.setNPC();
+        aSetter.setMonster();
         playMusic(0);
         stopMusic();
         gameState = titleState;
@@ -107,6 +114,12 @@ public class GamePanel extends JPanel implements Runnable {
                     npc[i].update();
                 }
             }
+            // MONSTER
+            for(int i = 0; i < monster.length; i++) {
+                if(monster[i] != null) {
+                    monster[i].update();
+                }
+            }
         }
         if(gameState == pauseState) {
             System.out.println("going to pause");
@@ -129,38 +142,52 @@ public class GamePanel extends JPanel implements Runnable {
             // Tiles
             tileM.draw(g2);
 
-            // Objects
-            for(int i = 0; i < obj.length; i++){
-                if(obj[i] != null) {
-                    obj[i].draw(g2, this);
+            // add characters and objects/items to the list
+            characterList.add(player);
+
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null) {
+                    characterList.add(npc[i]);
                 }
             }
 
-            // NPC
-            for(int i = 0; i < npc.length; i++){
-                if(npc[i] != null) {
-                    npc[i].draw(g2);
+            for(int i = 0; i < obj.length; i++){
+                if(obj[i] != null) {
+                    characterList.add(obj[i]);
                 }
+            }
+
+            for(int i = 0; i < monster.length; i++){
+                if(monster[i] != null) {
+                    characterList.add(monster[i]);
+                }
+            }
+
+            // Sort
+            Collections.sort(characterList, new Comparator<Characters>() {
+                @Override
+                public int compare(Characters o1, Characters o2) {
+
+                    int result = Integer.compare(o1.worldY, o2.worldY);
+                    return result;
+                }
+            });
+
+            // Draw characters/items/objects
+            for(int i = 0; i <characterList.size(); i++) {
+                characterList.get(i).draw(g2);
+            }
+            // empty the character list
+            for(int i = 0; i <characterList.size(); i++) {
+                characterList.remove(i);
             }
 
             // player
-            player.repaint(g2);
+//            player.repaint(g2);
 
             // ui
             ui.draw(g2);
         }
-
-
-
-
-        // debug
-//        if(keyH.checkDrawTime == true) {
-//            long drawEnd = System.nanoTime();
-//            long passed = drawEnd - drawStart;
-//            g2.setColor(Color.white);
-//            g2.drawString("Draw Time: " + passed, 10, 400);
-//            System.out.println("Draw Time: " + passed);
-//        }
 
         g2.dispose();
     }

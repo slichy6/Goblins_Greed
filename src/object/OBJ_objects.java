@@ -1,22 +1,15 @@
 package object;
 
-import java.io.IOException;
-// import java.util.Objects;
+import characters.Characters;
+import main.GamePanel;
 
-// import main.GamePanel;
-import javax.imageio.ImageIO;
+public class OBJ_objects extends Characters {
 
-public class OBJ_objects extends SuperObject{
+    public OBJ_objects(GamePanel gp){
+        super(gp);
 
-    public OBJ_objects(){
-        
-        name = "gold_coins";
-        try{
-            image = ImageIO.read(getClass().getResourceAsStream("/images/objects/gold_coins.png"));
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        name = "Gold Coins";
+        down1 = setup("/images/objects/coins_gold");
 
         collision = true;
         // obj[1] = "coins_gold";
