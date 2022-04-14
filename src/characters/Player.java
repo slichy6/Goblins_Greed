@@ -5,6 +5,7 @@ import main.KeyHandler;
 import java.awt.*;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import java.sql.SQLOutput;
 
 import javax.imageio.ImageIO;
 
@@ -14,6 +15,9 @@ public class Player extends Characters{
 
     public final int screenX;
     public final int screenY;
+    int hasTreasure = 0;
+    int hasWeapon = 0;
+    int hasArmor = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
@@ -22,9 +26,13 @@ public class Player extends Characters{
         screenX = 100;
         screenY = 100;
 
-        solidArea = new Rectangle(8, 16, 32, 32);
-        // solidAreaDefaultX = solidArea.x;
-        // solidAreaDefaultY = solidArea.y;
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 32;
+        solidArea.height = 32;
 
         setDefaultValues();
         getPlayerImage();
@@ -76,7 +84,10 @@ public class Player extends Characters{
             //CHECK TILE COLLISION
             collisionOn = false;
             gp.checker.checkTile(this);
-            // gp.checker.checkObject(this, true);
+
+            //check object collision
+            int objIndex = gp.checker.checkObject(this, true);
+            pickUpObject(objIndex);
 
             //if collision is false, then player can move
             if(collisionOn == false){
@@ -109,9 +120,35 @@ public class Player extends Characters{
         
     }
 
+    public void pickUpObject(int i){
+
+        if(i != 999){
+            String objectName = gp.obj[i].name;
+
+            switch(objectName){
+                case "gold_coins":
+                    hasTreasure++;
+                    gp.obj[i] = null;
+                    System.out.println("Treasure: " + hasTreasure);
+                    break;
+
+                case "chain_mail":
+                    hasArmor++;
+                    gp.obj[i] = null;
+                    System.out.println("Armor: " + hasArmor);
+                    break;
+
+                case "axe":
+                    hasWeapon++;
+                    gp.obj[i] = null;
+                    System.out.println("Weapon: " + hasWeapon);
+                    break;
+            }
+        }
+    }
+
     public void repaint(Graphics2D g2){
-        // g2.setColor(Color.GREEN);
-        // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
+
         BufferedImage image = null;
 
         switch(direction){
