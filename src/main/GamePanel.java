@@ -8,10 +8,10 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
     //screen settings
-    final int orginalTileSize = 16;  //16x16 tile
+    final int originalTileSize = 16;  //16x16 tile
     final int scale = 3; 
 
-    public final int tileSize = orginalTileSize * scale;  //48 x 48 tile
+    public final int tileSize = originalTileSize * scale;  //48 x 48 tile
     public final int maxScreenCol = 16; 
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;  //768 pixels
@@ -44,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
-    public void setUpObjects(){
+    public void setupObjects(){
 
         oSetter.setObject();
     }
@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
             timer += (currentTime - lastTime);
             lastTime = currentTime;
 
-            lastTime = currentTime;
+//            lastTime = currentTime;
 
             if(delta >= 1){
                 update();
