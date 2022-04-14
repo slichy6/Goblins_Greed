@@ -1,9 +1,10 @@
 package main;
 
 import characters.Characters;
+import characters.Player;
 
 public class CollisionChecker {
-    
+
     GamePanel gp;
 
     public CollisionChecker(GamePanel gp){
@@ -11,7 +12,7 @@ public class CollisionChecker {
     }
 
     public void checkTile(Characters characters){
-        
+
         int charactersLeftWorldX = characters.worldX + characters.solidArea.x;
         int charactersRightWorldX = characters.worldX + characters.solidArea.x + characters.solidArea.width;
         int charactersTopWorldY = characters.worldY + characters.solidArea.y;
@@ -35,7 +36,7 @@ public class CollisionChecker {
                 }
                 break;
 
-            case "down": 
+            case "down":
                 charactersBottomRow = (charactersBottomWorldY + characters.speed)/gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[charactersLeftCol][charactersBottomRow];
                 tileNum2 = gp.tileM.mapTileNum[charactersRightCol][charactersBottomRow];
@@ -48,72 +49,190 @@ public class CollisionChecker {
                 charactersLeftCol = (charactersLeftWorldX - characters.speed)/gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[charactersLeftCol][charactersTopRow];
                 tileNum2 = gp.tileM.mapTileNum[charactersLeftCol][charactersBottomRow];
-                    if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                        characters.collisionOn = true;
-                    }
+                if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                    characters.collisionOn = true;
+                }
                 break;
 
             case "right":
                 charactersRightCol = (charactersRightWorldX + characters.speed)/gp.tileSize;
                 tileNum1 = gp.tileM.mapTileNum[charactersRightCol][charactersTopRow];
                 tileNum2 = gp.tileM.mapTileNum[charactersRightCol][charactersBottomRow];
-                    if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
-                        characters.collisionOn = true;
-                    }
-                break;            
+                if(gp.tileM.tile[tileNum1].collision == true || gp.tileM.tile[tileNum2].collision == true){
+                    characters.collisionOn = true;
+                }
+                break;
         }
     }
+    public int checkObject(Characters characters, boolean player) {
 
-    // public int checkObject(Characters characters, boolean player){
+        int index = 999;
 
-    //     int index = 999;
+        for(int i = 0; i < gp.obj.length; i++) {
+            if(gp.obj[i] != null) {
 
-    //     for(int i = 0; i < gp.obj.length; i++){
-    //         if(gp.obj[i] != null){
+                // Get character's solid area position
+                characters.solidArea.x = characters.worldX + characters.solidArea.x;
+                characters.solidArea.y = characters.worldY + characters.solidArea.y;
 
-    //             //get player's solid area position
-    //             characters.solidArea.x = characters.worldX + characters.solidAreaDefaultX;
-    //             characters.solidArea.y = characters.worldY + characters.solidAreaDefaultY;
-    //             //get object's solid area position
-    //             gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
-    //             gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+                // Get the object's solid area position
+                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
+                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
 
-    //             switch(characters.direction){
-    //                 case "up":
-    //                     characters.solidArea.y -= characters.speed;
-    //                     if(characters.solidArea.intersects(gp.obj[i].solidArea)){
-    //                         System.out.print("up collision!");
-    //                     }
-    //                     break;
+                switch(characters.direction) {
+                    case "up":
+                        characters.solidArea.y -= characters.speed;
+                        if(characters.solidArea.intersects(gp.obj[i].solidArea)) {
+                            System.out.println("collision on bottom of object");
+                            if(gp.obj[i].collision == true) {
+                                characters.collisionOn = true;
+                            }
+                            if(player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "down":
+                        characters.solidArea.y += characters.speed;
+                        if(characters.solidArea.intersects(gp.obj[i].solidArea)) {
+                            System.out.println("collision on top of object");
+                            if(gp.obj[i].collision == true) {
+                                characters.collisionOn = true;
+                            }
+                            if(player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "left":
+                        characters.solidArea.x -= characters.speed;
+                        if(characters.solidArea.intersects(gp.obj[i].solidArea)) {
+                            System.out.println("collision on right of object");
+                            if(gp.obj[i].collision == true) {
+                                characters.collisionOn = true;
+                            }
+                            if(player == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "right":
+                        characters.solidArea.x -= characters.speed;
+                        if(characters.solidArea.intersects(gp.obj[i].solidArea)) {
+                            System.out.println("collision on left of object");
+                            if(gp.obj[i].collision == true) {
+                                characters.collisionOn = true;
+                            }
+                            if(player == true) {
+                                index = i;
+                            }
+                            break;
+                        }
+                }
+                characters.solidArea.x = characters.solidAreaDefaultX;
+                characters.solidArea.y = characters.solidAreaDefaultY;
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+            }
+        }
+        return index;
+    }
 
-    //                 case "down":
-    //                     characters.solidArea.y += characters.speed;
-    //                     if(characters.solidArea.intersects(gp.obj[i].solidArea)){
-    //                         System.out.print("down collision!");
-    //                     }
-    //                     break;
+    // NPC or Monster collision
 
-    //                 case "right":
-    //                     characters.solidArea.x += characters.speed; 
-    //                     if(characters.solidArea.intersects(gp.obj[i].solidArea)){
-    //                         System.out.print("right collision!");
-    //                     }
-    //                     break;
+    public int checkCharacter(Characters characters, Characters[] target) {
 
-    //                 case "left":    
-    //                     characters.solidArea.x -= characters.speed;
-    //                     if(characters.solidArea.intersects(gp.obj[i].solidArea)){
-    //                         System.out.print("left collision!");
-    //                     }
-    //                     break;
-    //             }
-    //             characters.solidArea.x = characters.solidAreaDefaultX;
-    //             characters.solidArea.y = characters.solidAreaDefaultY;
-    //             gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
-    //             gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
-    //         }
-    //     }
+        int index = 999;
 
-    //     return index;
-    // }
+        for(int i = 0; i < target.length; i++) {
+            if(target[i] != null) {
+
+                // Get character's solid area position
+                characters.solidArea.x = characters.worldX + characters.solidArea.x;
+                characters.solidArea.y = characters.worldY + characters.solidArea.y;
+
+                // Get the object's solid area position
+                target[i].solidArea.x = target[i].worldX + target[i].solidArea.x;
+                target[i].solidArea.y = target[i].worldY + target[i].solidArea.y;
+
+                switch(characters.direction) {
+                    case "up":
+                        characters.solidArea.y -= characters.speed;
+                        if(characters.solidArea.intersects(target[i].solidArea)) {
+                                characters.collisionOn = true;
+                                index = i;
+                        }
+                        break;
+                    case "down":
+                        characters.solidArea.y += characters.speed;
+                        if(characters.solidArea.intersects(target[i].solidArea)) {
+                                characters.collisionOn = true;
+                                index = i;
+                        }
+                        break;
+                    case "left":
+                        characters.solidArea.x -= characters.speed;
+                        if(characters.solidArea.intersects(target[i].solidArea)) {
+                                characters.collisionOn = true;
+                                index = i;
+                        }
+                        break;
+                    case "right":
+                        characters.solidArea.x -= characters.speed;
+                        if(characters.solidArea.intersects(target[i].solidArea)) {
+                                characters.collisionOn = true;
+                                index = i;
+                            break;
+                        }
+                }
+                characters.solidArea.x = characters.solidAreaDefaultX;
+                characters.solidArea.y = characters.solidAreaDefaultY;
+                target[i].solidArea.x = target[i].solidAreaDefaultX;
+                target[i].solidArea.y = target[i].solidAreaDefaultY;
+            }
+        }
+        return index;
+    }
+
+    public void checkPLayer(Characters characters) {
+
+        characters.solidArea.x = characters.worldX + characters.solidArea.x;
+        characters.solidArea.y = characters.worldY + characters.solidArea.y;
+
+        // Get the object's solid area position
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
+        gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+
+        switch(characters.direction) {
+            case "up":
+                characters.solidArea.y -= characters.speed;
+                if(characters.solidArea.intersects(gp.player.solidArea)) {
+                    characters.collisionOn = true;
+                }
+                break;
+            case "down":
+                characters.solidArea.y += characters.speed;
+                if(characters.solidArea.intersects(gp.player.solidArea)) {
+                    characters.collisionOn = true;
+                }
+                break;
+            case "left":
+                characters.solidArea.x -= characters.speed;
+                if(characters.solidArea.intersects(gp.player.solidArea)) {
+                    characters.collisionOn = true;
+                }
+                break;
+            case "right":
+                characters.solidArea.x -= characters.speed;
+                if(characters.solidArea.intersects(gp.player.solidArea)) {
+                    characters.collisionOn = true;
+                    break;
+                }
+        }
+        characters.solidArea.x = characters.solidAreaDefaultX;
+        characters.solidArea.y = characters.solidAreaDefaultY;
+        gp.player.solidArea.x = gp.player.solidAreaDefaultX;
+        gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+
+    }
 }

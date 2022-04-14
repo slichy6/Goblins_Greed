@@ -1,21 +1,26 @@
 package tile;
 
+import main.GamePanel;
+import main.UtilityTool;
+
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.awt.Graphics2D;
-// import java.awt.Image;
+import java.awt.Image;
 
 import javax.imageio.ImageIO;
 
-import main.GamePanel;
+//import com.GameBoard.main.GamePanel;
+
 
 public class TileManager{
 
     GamePanel gp;
     public Tile[] tile;
-    public int mapTileNum[][];
+    public int[][] mapTileNum;
 
     public TileManager(GamePanel gp){
         this.gp = gp;
@@ -24,55 +29,40 @@ public class TileManager{
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap();
+        loadMap("/images/maps/world1.txt");
     }
 
     public void getTileImage(){
-        try{
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/cobblestone.png"));
 
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/grass.png"));
-            tile[1].collision = true;
-
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/tree1.png"));
-            tile[2].collision = true;
-
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/wood_floor.png"));
-
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/border_bottom.png"));
-            tile[4].collision = true;
-
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/flooring.png"));
-
-            tile[6] = new Tile();
-            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/block.png"));
-            tile[6].collision = true;
-
-            tile[7] = new Tile();
-            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/border_top.png"));
-            tile[7].collision = true;
-
-            tile[8] = new Tile();
-            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/border_right.png"));
-            tile[8].collision = true;
-
-            tile[9] = new Tile();
-            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/border_left.png"));
-            tile[9].collision = true;
-
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+            setup(0, "cobblestone", false);
+            setup(1, "grass", true);
+            setup(2, "tree1", true);
+            setup(3, "wood_floor", false);
+            setup(4, "border_bottom", true);
+            setup(5, "flooring", true);
+            setup(6, "block", true);
+            setup(7, "border_top", true);
+            setup(8, "border_right", true);
+            setup(9, "border_left", true);
     }
 
-    public void loadMap(){
+    public void setup(int index, String imageName, boolean collision){
+
+        UtilityTool uTool = new UtilityTool();
+
+        try{
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/images/tiles/" + imageName + ".png"));
+            tile[index].image = uTool.scaledImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void loadMap(String filePath){
         try{
             InputStream is = getClass().getResourceAsStream("/images/maps/world1.txt");
 
@@ -86,7 +76,7 @@ public class TileManager{
                 String line = br.readLine();
 
                 while(col < gp.maxWorldCol){
-                    String numbers[] = line.split(" ");
+                    String[] numbers = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
 
@@ -106,10 +96,10 @@ public class TileManager{
     }
 
     public void draw(Graphics2D g2){
-    
+
         int worldCol = 0;
         int worldRow = 0;
-        
+
 
         while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow){
 
@@ -121,14 +111,38 @@ public class TileManager{
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-            if(worldX + gp.tileSize * 15 > gp.player.worldX - gp.player.screenX &&
-                worldX - gp.tileSize * 15 < gp.player.worldX + gp.player.screenX &&
-                worldY + gp.tileSize * 15 > gp.player.worldY - gp.player.screenY &&
-                worldY - gp.tileSize * 15 < gp.player.worldY + gp.player.screenY){
-
-                    g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            // stop moving the camera
+            if(gp.player.screenX > gp.player.worldX) {
+                screenX = worldX;
             }
-            
+            if(gp.player.screenY > gp.player.worldY) {
+                screenY = worldY;
+            }
+
+            int rightOffset = gp.screenWidth - gp.player.screenX;
+            if(rightOffset > gp.worldWidth - gp.player.worldX) {
+                screenX = gp.screenWidth - (gp.worldWidth - worldX);
+            }
+            int bottomOffset = gp.screenHeight - gp.player.screenY;
+            if(bottomOffset > gp.worldHeight - gp.player.worldY){
+                screenY = gp.screenHeight - (gp.worldHeight - worldY);
+            }
+
+
+            if(worldX + gp.tileSize * 15 > gp.player.worldX - gp.player.screenX &&
+                    worldX - gp.tileSize * 15 < gp.player.worldX + gp.player.screenX &&
+                    worldY + gp.tileSize * 15 > gp.player.worldY - gp.player.screenY &&
+                    worldY - gp.tileSize * 15 < gp.player.worldY + gp.player.screenY){
+
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+            }
+            else if(gp.player.screenX > gp.player.worldX ||
+                    gp.player.screenY > gp.player.worldY ||
+                    rightOffset > gp.worldWidth - gp.player.worldX ||
+                    bottomOffset > gp.worldHeight - gp.player.worldY) {
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+            }
+
             worldCol++;
 
             if(worldCol == gp.maxWorldCol){
