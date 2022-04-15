@@ -56,6 +56,12 @@ public class Characters {
     public Characters currentWeapon;
     public Characters currentArmor;
 
+    // Weapon and Item attributes
+    // TODO adjust these levels based on how difficult we want the game - monsters need higher attributes too
+    public int attackStrength;
+    public int defenseLevel;
+
+
 
     public Characters(GamePanel gp){
         this.gp = gp;
@@ -92,7 +98,12 @@ public class Characters {
             if(gp.player.invincible == false) {
                 // damage
                 gp.playSE(6);
-                gp.player.life -= 1;
+
+                int damage = attack - gp.player.defense;
+                if(damage < 0) {
+                    damage =0;
+                }
+                gp.player.life -= damage;
                 gp.player.invincible = true;
             }
         }
