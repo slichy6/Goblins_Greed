@@ -19,6 +19,7 @@ public class MON_BlueSlime extends Characters {
         life = maxLife;
         attack = 5;
         defense = 0;
+        exp = 5;
 
         solidArea.x = 3;
         solidArea.y = 18;
