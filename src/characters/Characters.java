@@ -60,6 +60,7 @@ public class Characters {
     // TODO adjust these levels based on how difficult we want the game - monsters need higher attributes too
     public int attackStrength;
     public int defenseLevel;
+    public String description = "";
 
 
 
