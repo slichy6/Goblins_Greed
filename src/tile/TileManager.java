@@ -39,7 +39,7 @@ public class TileManager{
             setup(2, "tree1", true);
             setup(3, "wood_floor", false);
             setup(4, "border_bottom", true);
-            setup(5, "flooring", true);
+            setup(5, "flooring", false);
             setup(6, "block", true);
             setup(7, "border_top", true);
             setup(8, "border_right", true);

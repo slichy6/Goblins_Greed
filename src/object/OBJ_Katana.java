@@ -7,10 +7,11 @@ public class OBJ_Katana extends Characters {
     public OBJ_Katana(GamePanel gp) {
         super(gp);
 
+        type = type_weapon;
         name = "Katana";
         down1 = setup("/images/weapons/katana", gp.tileSize, gp.tileSize);
         attackStrength = 1;
-        description = "[" + name + "]\nA strange blade only seen in the far East";
+        description = "[" + name + "]\nEastern curved blade.";
 
     }
 }

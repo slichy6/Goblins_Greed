@@ -242,8 +242,19 @@ public class Player extends Characters{
     }
     public void pickUpObject (int i) {
 
+        String text;
+
         if (i != 999) {
             System.out.println("Touching an object");
+            if(inventory .size() != inventorySize) {
+                inventory.add(gp.obj[i]);
+                //playSE(number); TODO add a pickup sound
+                text = "Stashed " + gp.obj[i].name + " in your bag.";
+            }else{
+                text = "Your bag is full.";
+            }
+            gp.ui.addMessage(text);
+            gp.obj[i] = null;
         }
     }
 
@@ -315,6 +326,25 @@ public class Player extends Characters{
             //TODO make this part look nicer and show stats better
             gp.ui.currentDialogue = "Your level is now " + level + "!\n" + "Your health went up to " + maxLife + " points!\n" + "Your strength went up to " + strength + " points!\n" + "Your dexterity went up to " + dexterity + " points!\n";
 
+        }
+    }
+    public void selectItem() {
+        int itemIndex = gp.ui.getItemIndexOfSlot();
+        if(itemIndex < inventory.size()){
+
+            Characters selectedItem = inventory.get(itemIndex);
+
+            if(selectedItem.type == type_weapon){
+                currentWeapon = selectedItem;
+                attack = getAttack();
+            }
+            if(selectedItem.type == type_armor){
+                currentArmor = selectedItem;
+                defense = getDefense();
+            }
+            if(selectedItem.type == type_consumable){
+                System.out.println("You can't eat a key");
+            }
         }
     }
     public void draw (Graphics2D g2){
