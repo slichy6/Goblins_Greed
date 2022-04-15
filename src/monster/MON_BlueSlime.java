@@ -7,9 +7,11 @@ import java.util.Random;
 
 public class MON_BlueSlime extends Characters {
 
+    GamePanel gp;
+
     public MON_BlueSlime(GamePanel gp) {
         super(gp);
-
+        this.gp=gp;
         type = 2; // this is to ensure that only monsters can harm the player character and not the npcs
         name = "Green Slime";
         speed = 1;
@@ -29,14 +31,14 @@ public class MON_BlueSlime extends Characters {
 
     public void getImage() {
 
-        up1 = setup("/images/monster/blue_down_1");
-        up2 = setup("/images/monster/blue_down_2");
-        down1 = setup("/images/monster/blue_down_1");
-        down2 = setup("/images/monster/blue_down_2");
-        left1 = setup("/images/monster/blue_down_1");
-        left2 = setup("/images/monster/blue_down_2");
-        right1 = setup("/images/monster/blue_down_1");
-        right2 = setup("/images/monster/blue_down_2");
+        up1 = setup("/images/monster/blue_down_1", gp.tileSize, gp.tileSize);
+        up2 = setup("/images/monster/blue_down_2", gp.tileSize, gp.tileSize);
+        down1 = setup("/images/monster/blue_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("/images/monster/blue_down_2", gp.tileSize, gp.tileSize);
+        left1 = setup("/images/monster/blue_down_1", gp.tileSize, gp.tileSize);
+        left2 = setup("/images/monster/blue_down_2", gp.tileSize, gp.tileSize);
+        right1 = setup("/images/monster/blue_down_1", gp.tileSize, gp.tileSize);
+        right2 = setup("/images/monster/blue_down_2", gp.tileSize, gp.tileSize);
     }
 
     public void setAction() {

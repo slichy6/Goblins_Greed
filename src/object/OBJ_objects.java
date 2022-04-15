@@ -9,7 +9,7 @@ public class OBJ_objects extends Characters {
         super(gp);
 
         name = "Gold Coins";
-        down1 = setup("/images/objects/coins_gold");
+        down1 = setup("/images/objects/coins_gold", gp.tileSize, gp.tileSize);
 
         collision = true;
         // obj[1] = "coins_gold";
