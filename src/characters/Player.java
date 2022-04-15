@@ -15,6 +15,7 @@ public class Player extends Characters{
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
+    int hasKey = 0;
 
 
     public Player(GamePanel gp, KeyHandler keyH){
@@ -233,7 +234,21 @@ public class Player extends Characters{
     public void pickUpObject (int i) {
 
         if (i != 999) {
-            System.out.println("Touching an object");
+//            gp.obj[i] = null;
+            String objectName = gp.obj[i].name;
+            switch(objectName){
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    break;
+
+                case "Door":
+                    if(hasKey > 0){
+                        gp.obj[i] = null;
+                        hasKey--;
+                    }
+                    break;
+            }
         }
     }
 

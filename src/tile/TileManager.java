@@ -1,15 +1,12 @@
 package tile;
 
-import main.GamePanel;
-import main.UtilityTool;
+import main.*;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.awt.Graphics2D;
-import java.awt.Image;
 
 import javax.imageio.ImageIO;
 
@@ -39,7 +36,7 @@ public class TileManager{
             setup(2, "tree1", true);
             setup(3, "wood_floor", false);
             setup(4, "border_bottom", true);
-            setup(5, "flooring", true);
+            setup(5, "flooring", false);
             setup(6, "block", true);
             setup(7, "border_top", true);
             setup(8, "border_right", true);
