@@ -2,6 +2,8 @@ package characters;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.OBJ_CMail;
+import object.OBJ_Katana;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -50,8 +52,26 @@ public class Player extends Characters{
         direction = "down";
 
         // Player Stats
+        level = 1;
         maxLife = 6;
         life = maxLife;
+        strength = 1; // attack value
+        dexterity = 1; // defense level
+        exp = 0;
+        nextLevelExp = 5;
+        gil = 0;
+        currentWeapon = new OBJ_Katana(gp);
+        currentArmor = new OBJ_CMail(gp);
+        attack = getAttack(); // factor of strength and equipped weapon
+        defense = getDefense(); // factor of dex and equipped armor
+    }
+
+    public int getAttack() {
+        return attack = strength * currentWeapon.attackStrength;
+    }
+
+    public int getDefense() {
+        return defense = dexterity * currentArmor.defenseLevel;
     }
 
     public void getPlayerImage(){
@@ -233,7 +253,11 @@ public class Player extends Characters{
         if(i != 999){
             if(invincible = false) {
                 gp.playSE(6);
-                life -= 1;
+                int damage = gp.monster[i].attack - defense;
+                if(damage < 0) {
+                    damage =0;
+                }
+                life -= damage;
                 invincible = true;
             }
         }
@@ -243,17 +267,45 @@ public class Player extends Characters{
         if(i != 999) {
             if(gp.monster[i].invincible == false){
                 gp.playSE(5);
-                gp.monster[i].life -= 1;
+
+                int damage = attack - gp.monster[i].defense;
+                if(damage < 0) {
+                    damage =0;
+                }
+                gp.monster[i].life -= damage;
+                gp.ui.addMessage(damage + " damage!");
                 gp.monster[i].invincible = true;
                 gp.monster[i].damageReaction();;
 
                 if(gp.monster[i].life <= 0) {
                     gp.monster[i].dying = true;
+                    gp.ui.addMessage(gp.monster[i].name + " slayed!");
+                    gp.ui.addMessage("Gained " + gp.monster[i].exp + " exp");
+                    exp += gp.monster[i].exp;
+                    checkLevelUp();
                 }
             }
         }
     }
 
+    public void checkLevelUp() {
+
+        if(exp >= nextLevelExp) {
+
+            level++;
+            nextLevelExp = nextLevelExp*2;
+            maxLife += 2;
+            strength++;
+            dexterity++;
+            attack = getAttack();
+            defense = getDefense();
+
+            gp.playSE(8);
+            gp.gameState = gp.dialogueState;
+            gp.ui.currentDialogue = "Your level is now " + level + "!\n";
+
+        }
+    }
     public void draw (Graphics2D g2){
 
         BufferedImage image = null;

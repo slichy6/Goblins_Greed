@@ -16,6 +16,9 @@ public class MON_GreenSlime extends Characters {
         speed = 1;
         maxLife = 3;
         life = maxLife;
+        attack = 5;
+        defense = 0;
+        exp = 5;
 
         solidArea.x = 3;
         solidArea.y = 18;
