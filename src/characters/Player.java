@@ -4,9 +4,11 @@ import main.GamePanel;
 import main.KeyHandler;
 import object.OBJ_CMail;
 import object.OBJ_Katana;
+import object.OBJ_Key;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Player extends Characters{
 
@@ -15,7 +17,8 @@ public class Player extends Characters{
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
-
+    public ArrayList<Characters> inventory = new ArrayList<>();
+    public final int inventorySize = 20;
 
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp);
@@ -42,6 +45,7 @@ public class Player extends Characters{
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
 
     public void setDefaultValues(){
@@ -64,6 +68,12 @@ public class Player extends Characters{
         currentArmor = new OBJ_CMail(gp);
         attack = getAttack(); // factor of strength and equipped weapon
         defense = getDefense(); // factor of dex and equipped armor
+    }
+
+    public void setItems() {
+        inventory.add(currentWeapon);
+        inventory.add(currentArmor);
+        inventory.add(new OBJ_Key(gp));
     }
 
     public int getAttack() {

@@ -10,6 +10,7 @@ public class OBJ_Katana extends Characters {
         name = "Katana";
         down1 = setup("/images/weapons/katana", gp.tileSize, gp.tileSize);
         attackStrength = 1;
+        description = "[" + name + "]\nA strange blade only seen in the far East";
 
     }
 }
