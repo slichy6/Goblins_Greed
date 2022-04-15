@@ -23,13 +23,13 @@ public class AssetSetter {
         gp.obj[1].worldX = 23 * gp.tileSize;
         gp.obj[1].worldY = 30 * gp.tileSize;
 
-        gp.obj[2] = new OBJ_Flail(gp);
+        gp.obj[2] = new OBJ_Door(gp);
         gp.obj[2].worldX = 26 * gp.tileSize;
         gp.obj[2].worldY = 8 * gp.tileSize;
 
-        gp.obj[3] = new OBJ_TShield(gp);
-        gp.obj[3].worldX = 23 * gp.tileSize;
-        gp.obj[3].worldY = 5 * gp.tileSize;
+        gp.obj[3] = new OBJ_Door(gp);
+        gp.obj[3].worldX = 37 * gp.tileSize;
+        gp.obj[3].worldY = 30 * gp.tileSize;
 
     }
 

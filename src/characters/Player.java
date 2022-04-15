@@ -4,11 +4,9 @@ import main.GamePanel;
 import main.KeyHandler;
 import object.OBJ_CMail;
 import object.OBJ_Katana;
-import object.OBJ_Key;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Player extends Characters{
 
@@ -17,8 +15,8 @@ public class Player extends Characters{
     public final int screenY;
     int standCounter = 0;
     public boolean attackCanceled = false;
-    public ArrayList<Characters> inventory = new ArrayList<>();
-    public final int inventorySize = 20;
+    int hasKey = 0;
+    //just trying to push
 
     public Player(GamePanel gp, KeyHandler keyH){
         super(gp);
@@ -45,7 +43,6 @@ public class Player extends Characters{
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
-        setItems();
     }
 
     public void setDefaultValues(){
@@ -68,12 +65,6 @@ public class Player extends Characters{
         currentArmor = new OBJ_CMail(gp);
         attack = getAttack(); // factor of strength and equipped weapon
         defense = getDefense(); // factor of dex and equipped armor
-    }
-
-    public void setItems() {
-        inventory.add(currentWeapon);
-        inventory.add(currentArmor);
-        inventory.add(new OBJ_Key(gp));
     }
 
     public int getAttack() {
@@ -242,19 +233,22 @@ public class Player extends Characters{
     }
     public void pickUpObject (int i) {
 
-        String text;
-
         if (i != 999) {
-            System.out.println("Touching an object");
-            if(inventory .size() != inventorySize) {
-                inventory.add(gp.obj[i]);
-                //playSE(number); TODO add a pickup sound
-                text = "Stashed " + gp.obj[i].name + " in your bag.";
-            }else{
-                text = "Your bag is full.";
+//            gp.obj[i] = null;
+            String objectName = gp.obj[i].name;
+            switch(objectName){
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    break;
+
+                case "Door":
+                    if(hasKey > 0){
+                        gp.obj[i] = null;
+                        hasKey--;
+                    }
+                    break;
             }
-            gp.ui.addMessage(text);
-            gp.obj[i] = null;
         }
     }
 
@@ -326,25 +320,6 @@ public class Player extends Characters{
             //TODO make this part look nicer and show stats better
             gp.ui.currentDialogue = "Your level is now " + level + "!\n" + "Your health went up to " + maxLife + " points!\n" + "Your strength went up to " + strength + " points!\n" + "Your dexterity went up to " + dexterity + " points!\n";
 
-        }
-    }
-    public void selectItem() {
-        int itemIndex = gp.ui.getItemIndexOfSlot();
-        if(itemIndex < inventory.size()){
-
-            Characters selectedItem = inventory.get(itemIndex);
-
-            if(selectedItem.type == type_weapon){
-                currentWeapon = selectedItem;
-                attack = getAttack();
-            }
-            if(selectedItem.type == type_armor){
-                currentArmor = selectedItem;
-                defense = getDefense();
-            }
-            if(selectedItem.type == type_consumable){
-                System.out.println("You can't eat a key");
-            }
         }
     }
     public void draw (Graphics2D g2){

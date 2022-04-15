@@ -11,7 +11,7 @@ public class MON_GreenSlime extends Characters {
     public MON_GreenSlime(GamePanel gp) {
         super(gp);
         this.gp = gp;
-        type = type_monster;
+        type = 2;
         name = "Green Slime";
         speed = 1;
         maxLife = 3;
