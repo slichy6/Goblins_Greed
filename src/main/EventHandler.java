@@ -107,6 +107,7 @@ public class EventHandler {
             gp.player.attackCanceled = true;
             gp.ui.currentDialogue = "You recover your life from the healing waters.";
             gp.player.life = gp.player.maxLife;
+            gp.aSetter.setMonster();
 
         }
     }

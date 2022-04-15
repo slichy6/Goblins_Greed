@@ -302,7 +302,8 @@ public class Player extends Characters{
 
             gp.playSE(8);
             gp.gameState = gp.dialogueState;
-            gp.ui.currentDialogue = "Your level is now " + level + "!\n";
+            //TODO make this part look nicer and show stats better
+            gp.ui.currentDialogue = "Your level is now " + level + "!\n" + "Your health went up to " + maxLife + " points!\n" + "Your strength went up to " + strength + " points!\n" + "Your dexterity went up to " + dexterity + " points!\n";
 
         }
     }
