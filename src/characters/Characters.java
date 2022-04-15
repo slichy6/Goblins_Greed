@@ -40,7 +40,6 @@ public class Characters {
     public int hpBarCounter = 0;
 
     // Character Stats
-    public int type; //0 player 1 npc 2 monster
     public String name;
     public int speed;
     public int maxLife;
@@ -61,6 +60,15 @@ public class Characters {
     public int attackStrength;
     public int defenseLevel;
     public String description = "";
+
+    // what kind of object are we dealing with based on integer index
+    public int type; //0 player 1 npc 2 monster
+    public final int type_player = 0;
+    public final int type_npc = 1;
+    public final int type_monster = 2;
+    public final int type_weapon = 3;
+    public final int type_armor = 4;
+    public final int type_consumable = 5;
 
 
 
@@ -95,7 +103,7 @@ public class Characters {
         gp.cChecker.checkCharacter(this, gp.monster);
         boolean contactPlayer = gp.cChecker.checkPLayer(this);
 
-        if(this.type == 2 && contactPlayer == true) {
+        if(this.type == type_monster && contactPlayer == true) {
             if(gp.player.invincible == false) {
                 // damage
                 gp.playSE(6);
