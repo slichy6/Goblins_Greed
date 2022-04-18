@@ -1,23 +1,17 @@
 package object;
 
 import characters.Characters;
-import main.GamePanel;
+import main.*;
+
 
 public class OBJ_objects extends Characters {
 
-    public OBJ_objects(GamePanel gp){
+    public OBJ_objects(GamePanel gp) {
+
         super(gp);
 
-        name = "Gold Coins";
+        name = "coins_gold";
         down1 = setup("/images/objects/coins_gold", gp.tileSize, gp.tileSize);
-
         collision = true;
-        // obj[1] = "coins_gold";
-        // try{
-        //     obj[1] = ImageIO.read(getClass().getResourceAsStream("/images/objects/coins_gold.png"));
-
-        // }catch(IOException e){
-        //     e.printStackTrace();
-        // }
     }
 }
