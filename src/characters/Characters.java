@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Characters {
-    GamePanel gp;
+    public GamePanel gp;
 
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1, attackRight2;
@@ -68,6 +68,7 @@ public class Characters {
     public final int type_weapon = 3;
     public final int type_armor = 4;
     public final int type_consumable = 5;
+    public final int type_key = 6;
 
 
 
@@ -91,6 +92,8 @@ public class Characters {
 
     public void setAction() {}
     public void damageReaction() {}
+
+    public void use(Characters characters) {}
     public void update() {
 
         setAction();
