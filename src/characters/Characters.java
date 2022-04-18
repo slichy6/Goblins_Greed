@@ -106,17 +106,7 @@ public class Characters {
         boolean contactPlayer = gp.cChecker.checkPLayer(this);
 
         if(this.type == type_monster && contactPlayer == true) {
-            if(gp.player.invincible == false) {
-                // damage
-                gp.playSE(6);
-
-                int damage = attack - gp.player.defense;
-                if(damage < 0) {
-                    damage =0;
-                }
-                gp.player.life -= damage;
-                gp.player.invincible = true;
-            }
+            damagePlayer(attack);
         }
         if(collisionOn == false) {
             switch(direction) {
@@ -231,11 +221,24 @@ public class Characters {
             if(dying == true) {
                 dyingAnimation(g2);
             }
-            g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(image, screenX, screenY, null);
 
             changeAlpha(g2,1F);
         }
 
+    }
+    public void damagePlayer(int attack){
+        if(gp.player.invincible == false) {
+            // damage
+            gp.playSE(6);
+
+            int damage = attack - gp.player.defense;
+            if(damage < 0) {
+                damage =0;
+            }
+            gp.player.life -= damage;
+            gp.player.invincible = true;
+        }
     }
     // This is basically a blinking animation so you can see the monster or player dying
     public void dyingAnimation(Graphics2D g2) {

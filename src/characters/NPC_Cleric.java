@@ -32,7 +32,7 @@ public class NPC_Cleric extends Characters {
 
     public void setDialogue() {
 
-        dialogues[0] = "TEst Test Test";
+        dialogues[0] = "Test Test Test";
         dialogues[1] = "You're going to need to find more from the JSON file";
     }
     public void setAction() {
@@ -53,7 +53,7 @@ public class NPC_Cleric extends Characters {
             if (i > 50 && i <= 75) {
                 direction = "left";
             }
-            if (i > 75 && i <= 100) {
+            if (i > 75) {
                 direction = "right";
             }
         }

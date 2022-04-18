@@ -22,7 +22,7 @@ public class TileManager{
     public TileManager(GamePanel gp){
         this.gp = gp;
 
-        tile = new Tile[10];
+        tile = new Tile[100];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
@@ -31,16 +31,17 @@ public class TileManager{
 
     public void getTileImage(){
 
-            setup(0, "cobblestone", false);
-            setup(1, "grass", false);
-            setup(2, "tree1", true);
-            setup(3, "wood_floor", false);
-            setup(4, "border_bottom", true);
-            setup(5, "flooring", false);
-            setup(6, "block", true);
-            setup(7, "border_top", true);
-            setup(8, "border_right", true);
-            setup(9, "border_left", true);
+            setup(10, "cobblestone", false);
+            setup(11, "grass", false);
+            setup(12, "tree1", true);
+            setup(13, "wood_floor", false);
+            setup(14, "border_bottom", true);
+            setup(15, "flooring", false);
+            setup(16, "block", true);
+            setup(17, "border_top", true);
+            setup(18, "border_right", true);
+            setup(19, "border_left", true);
+            setup(20,"ruby", true);
     }
 
     public void setup(int index, String imageName, boolean collision){
@@ -116,14 +117,14 @@ public class TileManager{
                 screenY = worldY;
             }
 
-            int rightOffset = gp.screenWidth - gp.player.screenX;
-            if(rightOffset > gp.worldWidth - gp.player.worldX) {
-                screenX = gp.screenWidth - (gp.worldWidth - worldX);
-            }
-            int bottomOffset = gp.screenHeight - gp.player.screenY;
-            if(bottomOffset > gp.worldHeight - gp.player.worldY){
-                screenY = gp.screenHeight - (gp.worldHeight - worldY);
-            }
+//            int rightOffset = gp.screenWidth - gp.player.screenX;
+//            if(rightOffset > gp.worldWidth - gp.player.worldX) {
+//                screenX = gp.screenWidth - (gp.worldWidth - worldX);
+//            }
+//            int bottomOffset = gp.screenHeight - gp.player.screenY;
+//            if(bottomOffset > gp.worldHeight - gp.player.worldY){
+//                screenY = gp.screenHeight - (gp.worldHeight - worldY);
+//            }
 
 
             if(worldX + gp.tileSize * 15 > gp.player.worldX - gp.player.screenX &&
@@ -134,9 +135,7 @@ public class TileManager{
                 g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
             else if(gp.player.screenX > gp.player.worldX ||
-                    gp.player.screenY > gp.player.worldY ||
-                    rightOffset > gp.worldWidth - gp.player.worldX ||
-                    bottomOffset > gp.worldHeight - gp.player.worldY) {
+                    gp.player.screenY > gp.player.worldY) {
                 g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
 
