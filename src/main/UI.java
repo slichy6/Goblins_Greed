@@ -65,6 +65,10 @@ public class UI {
             if(gp.gameState == gp.titleState) {
                 drawTitleScreen();
             }
+
+            if(gp.gameState == gp.nameEnterState){
+                drawName();
+            }
             // play state
             if(gp.gameState == gp.playState) {
                 // TODO playstate stuff
@@ -225,6 +229,34 @@ public class UI {
 //                }
 //            }
 //
+        }
+        public void drawName() {
+
+            g2.setColor(new Color(0, 0, 0));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+            //Starting Screen
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(42F));
+
+            String text = "What do you call yourself?";
+            int x = getXforCenteredText(text);
+            int y = gp.tileSize * 3;
+            g2.drawString(text, x, y);
+
+            // TODO name enter here
+            text = "Player 1";
+            y += gp.tileSize * 3;
+            g2.drawString(text, x, y);
+            if (commandNum == 0) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+            text = "Go Back";
+            y += gp.tileSize * 2;
+            g2.drawString(text, x, y);
+            if (commandNum == 1) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
         }
 
         public void drawPauseScreen() {
