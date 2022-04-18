@@ -31,6 +31,10 @@ public class AssetSetter {
         gp.obj[3].worldX = 23 * gp.tileSize;
         gp.obj[3].worldY = 5 * gp.tileSize;
 
+        gp.obj[3] = new OBJ_Potion(gp);
+        gp.obj[3].worldX = 20 * gp.tileSize;
+        gp.obj[3].worldY = 5 * gp.tileSize;
+
     }
 
     public void setNPC() {

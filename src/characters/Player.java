@@ -248,7 +248,7 @@ public class Player extends Characters{
             System.out.println("Touching an object");
             if(inventory .size() != inventorySize) {
                 inventory.add(gp.obj[i]);
-                //playSE(number); TODO add a pickup sound
+                gp.playSE(10);
                 text = "Stashed " + gp.obj[i].name + " in your bag.";
             }else{
                 text = "Your bag is full.";
@@ -343,7 +343,8 @@ public class Player extends Characters{
                 defense = getDefense();
             }
             if(selectedItem.type == type_consumable){
-                System.out.println("You can't eat a key");
+                selectedItem.use(this);
+                inventory.remove(itemIndex);
             }
         }
     }
