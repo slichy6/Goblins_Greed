@@ -54,9 +54,9 @@ public class EventHandler {
                 // world event happens here
                 damagePit(57, 55, gp.dialogueState);
             }
-            if (hit(23, 12, "up") == true) {
+            if (hit(14, 4, "up") == true) {
                 // world event happens here
-                healingPool(23, 12, gp.dialogueState);
+                healingPool(14, 4, gp.dialogueState);
             }
         }
     }
@@ -105,7 +105,7 @@ public class EventHandler {
         if(gp.keyH.enterPressed == true) {
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
-            gp.ui.currentDialogue = "You recover your life from the healing waters.";
+            gp.ui.currentDialogue = "You kindled the flame.";
             gp.player.life = gp.player.maxLife;
             gp.aSetter.setMonster();
 

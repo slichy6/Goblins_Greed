@@ -49,37 +49,65 @@ public class KeyHandler implements KeyListener{
         else if(gp.gameState == gp.characterState){
             characterState(code);
         }
+        else if(gp.gameState == gp.nameEnterState){
+            enterNameState(code);
+        }
     }
-    public void titleState(int code){
+    public void titleState(int code) {
 
         if (code == KeyEvent.VK_UP) {
             gp.ui.commandNum--;
-            if(gp.ui.commandNum < 0) {
+            if (gp.ui.commandNum < 0) {
                 gp.ui.commandNum = 2;
             }
         }
         if (code == KeyEvent.VK_DOWN) {
             gp.ui.commandNum++;
-            if(gp.ui.commandNum > 2) {
+            if (gp.ui.commandNum > 2) {
                 gp.ui.commandNum = 0;
             }
         }
-        if (code == KeyEvent.VK_ENTER){
-            if(gp.ui.commandNum == 0){
-                gp.gameState = gp.playState;
-//                gp.playMusic(1);
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.commandNum == 0) {
+                gp.gameState = gp.nameEnterState;
+//                gp.playMusic(0);
             }
-            if(gp.ui.commandNum == 1) {
+            if (gp.ui.commandNum == 1) {
                 // TODO later continue game
                 System.out.println("Continue Pressed");
             }
-            if(gp.ui.commandNum == 2) {
+            if (gp.ui.commandNum == 2) {
                 // Exit Game
                 System.exit(0);
             }
         }
     }
 
+    public void enterNameState(int code){
+        if (code == KeyEvent.VK_UP) {
+            gp.ui.commandNum--;
+            if (gp.ui.commandNum < 0) {
+                gp.ui.commandNum = 1;
+            }
+        }
+        if (code == KeyEvent.VK_DOWN) {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 1) {
+                gp.ui.commandNum = 0;
+            }
+        }
+        if (code == KeyEvent.VK_ENTER) {
+            if (gp.ui.commandNum == 0) {
+                gp.gameState = gp.playState;
+//                gp.stopMusic();
+//                gp.playMusic(1);
+            }
+            if (gp.ui.commandNum ==1) {
+                gp.gameState = gp.titleState;
+                gp.stopMusic();
+            }
+        }
+    }
     public void playState(int code){
         if (code == KeyEvent.VK_UP) {
             upPressed = true;
