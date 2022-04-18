@@ -7,6 +7,7 @@ import tile.*;
 
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,11 +15,11 @@ import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     //screen settings
-    final int orginalTileSize = 16;  //16x16 tile
+    final int originalTileSize = 16;  //16x16 tile
     final int scale = 3;
 
-    public final int tileSize = orginalTileSize * scale;  //48 x 48 tile
-    public final int maxScreenCol = 16;
+    public final int tileSize = originalTileSize * scale;  //48 x 48 tile
+    public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;  //768 pixels
     public final int screenHeight = tileSize * maxScreenRow;  //576 pixels
@@ -28,6 +29,12 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxWorldRow = 50;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
+
+    // Full Screen
+    int screenWidth2 = screenWidth;
+    int screenHeight2 = screenHeight;
+    BufferedImage tempScreen;
+    Graphics2D g2;
 
     //FPS setting
     int FPS = 60;
@@ -74,8 +81,26 @@ public class GamePanel extends JPanel implements Runnable {
 //        stopMusic();
         gameState = titleState;
 
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+        g2 = (Graphics2D)tempScreen.getGraphics(); // rendering the screen to a temp then to JPanel to resize
+
+//        setFullScreen();
+
+
     }
 
+    public void setFullScreen(){
+
+        // Sets the game screen to the default screen setting of the user
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(Main.window);
+
+        // full screen width and height
+        screenWidth2 = Main.window.getWidth();
+        screenHeight2 = Main.window.getHeight();
+
+    }
     public void startGameThread(){
         gameThread = new Thread(this);  //instantiate the thread
         gameThread.start();
@@ -99,8 +124,16 @@ public class GamePanel extends JPanel implements Runnable {
 
             if(delta >= 1){
                 update();
-                repaint();
+//                repaint();
+                drawFullScreen(); // draw everything to the buffered images
+                drawToScree(); // draw buffered image to the screen
                 delta--;
+                drawCount++;
+            }
+
+            if(timer >= 1000000){
+                drawCount = 0;
+                timer = 0;
             }
         }
     }
@@ -132,11 +165,12 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-
-    //draws on jpanel
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+    public void drawFullScreen(){
+        //Debugging/testing
+        long drawStart = 0;
+        if(keyH.showDebugText == true){
+            drawStart = System.nanoTime();
+        }
 
 
         // Title Screen
@@ -193,9 +227,118 @@ public class GamePanel extends JPanel implements Runnable {
             ui.draw(g2);
         }
 
-        g2.dispose();
-    }
+        // SHow the player's world x, world y so we can place items within the world easier
+        if(keyH.showDebugText == true){
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
 
+            g2.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+            g2.setColor(Color.white);
+            int x = 10;
+            int y = 400;
+            int lineHeight = 20;
+
+            g2.drawString("WorldX " + player.worldX, x, y); y += lineHeight;
+            g2.drawString("WorldY " + player.worldY, x, y); y += lineHeight;
+            g2.drawString("Column " + (player.worldX + player.solidArea.x)/tileSize, x, y);y += lineHeight;
+            g2.drawString("Row " + (player.worldY + player.solidArea.y)/tileSize, x, y);y += lineHeight;
+            System.out.println("Draw Time: " + passed);
+        }
+
+    }
+//
+//    //draws on jpanel
+//    public void paintComponent(Graphics g){
+//        super.paintComponent(g);
+//        Graphics2D g2 = (Graphics2D)g;
+//
+//        //Debugging/testing
+//        long drawStart = 0;
+//        if(keyH.showDebugText == true){
+//            drawStart = System.nanoTime();
+//        }
+//
+//
+//        // Title Screen
+//        if(gameState == titleState) {
+//            ui.draw(g2);
+//        }
+//        // other stuff
+//        else {
+//            // Tiles
+//            tileM.draw(g2);
+//
+//            // add characters and objects/items to the list
+//            characterList.add(player);
+//
+//            for(int i = 0; i < npc.length; i++){
+//                if(npc[i] != null) {
+//                    characterList.add(npc[i]);
+//                }
+//            }
+//
+//            for(int i = 0; i < obj.length; i++){
+//                if(obj[i] != null) {
+//                    characterList.add(obj[i]);
+//                }
+//            }
+//
+//            for(int i = 0; i < monster.length; i++){
+//                if(monster[i] != null) {
+//                    characterList.add(monster[i]);
+//                }
+//            }
+//
+//            // Sort
+//            Collections.sort(characterList, new Comparator<Characters>() {
+//                @Override
+//                public int compare(Characters o1, Characters o2) {
+//
+//                    int result = Integer.compare(o1.worldY, o2.worldY);
+//                    return result;
+//                }
+//            });
+//
+//            // Draw characters/items/objects
+//            for(int i = 0; i <characterList.size(); i++) {
+//                characterList.get(i).draw(g2);
+//            }
+//            // empty the character list
+//            characterList.clear();
+//
+//            // player
+////            player.repaint(g2);
+//
+//            // ui
+//            ui.draw(g2);
+//        }
+//
+//        // SHow the player's world x, world y so we can place items within the world easier
+//        if(keyH.showDebugText == true){
+//            long drawEnd = System.nanoTime();
+//            long passed = drawEnd - drawStart;
+//
+//            g2.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+//            g2.setColor(Color.white);
+//            int x = 10;
+//            int y = 400;
+//            int lineHeight = 20;
+//
+//            g2.drawString("WorldX " + player.worldX, x, y); y += lineHeight;
+//            g2.drawString("WorldY " + player.worldY, x, y); y += lineHeight;
+//            g2.drawString("Column " + (player.worldX + player.solidArea.x)/tileSize, x, y);y += lineHeight;
+//            g2.drawString("Row " + (player.worldY + player.solidArea.y)/tileSize, x, y);y += lineHeight;
+//            System.out.println("Draw Time: " + passed);
+//        }
+//
+//        g2.dispose();
+//    }
+    public void drawToScree() {
+
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        g.dispose();
+    }
     public void playMusic(int i){
 
         music.setFile(i);

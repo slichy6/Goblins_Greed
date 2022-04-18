@@ -280,6 +280,7 @@ public class Player extends Characters{
                 }
                 life -= damage;
                 invincible = true;
+                damageReaction();
             }
         }
     }

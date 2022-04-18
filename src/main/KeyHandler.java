@@ -8,6 +8,9 @@ public class KeyHandler implements KeyListener{
 
     GamePanel gp;
     public boolean upPressed, downPressed, rightPressed, leftPressed, enterPressed;
+    //Debugging
+    boolean showDebugText = false;
+
 
 
     public KeyHandler(GamePanel gp){
@@ -98,6 +101,20 @@ public class KeyHandler implements KeyListener{
         }
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
+        }
+
+        // DEBUGGING and showing locations of tiles x,y axis
+        if(code == KeyEvent.VK_T) {
+            if(showDebugText == false) {
+                showDebugText = true;
+            }
+            else if(showDebugText == true) {
+                showDebugText = false;
+            }
+        }
+        if(code == KeyEvent.VK_Y) {
+            gp.tileM.loadMap("/images/maps/world1.txt");
+            System.out.println("Resetting");
         }
     }
 

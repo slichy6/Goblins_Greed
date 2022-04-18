@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Goblins_Greed:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Goblins_Greed_jar</output-path>
+    <root id="archive" name="Goblins_Greed.jar">
+      <element id="module-output" name="Goblins_Greed" />
+    </root>
+  </artifact>
+</component>
