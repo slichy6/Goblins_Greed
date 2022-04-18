@@ -6,7 +6,6 @@ import characters.Player;
 public class CollisionChecker {
 
     GamePanel gp;
-    //just trying to push
 
     public CollisionChecker(GamePanel gp){
         this.gp = gp;

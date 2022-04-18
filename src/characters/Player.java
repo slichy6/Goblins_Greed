@@ -245,16 +245,41 @@ public class Player extends Characters{
         String text;
 
         if (i != 999) {
-            System.out.println("Touching an object");
-            if(inventory .size() != inventorySize) {
-                inventory.add(gp.obj[i]);
-                gp.playSE(10);
-                text = "Stashed " + gp.obj[i].name + " in your bag.";
-            }else{
-                text = "Your bag is full.";
+            String objectName = gp.obj[i].name;
+
+            switch(objectName){
+                case "Door":
+                    inventory.remove(gp.obj[0]);
+                    gp.obj[i] = null;
+                    break;
+
+                case "Key":
+                case "Chest":
+                case "Health Potion":
+
+                case "coins_gold":
+                    if(inventory .size() != inventorySize) {
+                        inventory.add(gp.obj[i]);
+                        gp.playSE(10);
+                        text = "Stashed " + gp.obj[i].name + " in your bag.";
+                    }else{
+                        text = "Your bag is full.";
+                    }
+                    gp.ui.addMessage(text);
+                    gp.obj[i] = null;
+                    break;
+
             }
-            gp.ui.addMessage(text);
-            gp.obj[i] = null;
+
+//            if(inventory .size() != inventorySize) {
+//                inventory.add(gp.obj[i]);
+//                gp.playSE(10);
+//                text = "Stashed " + gp.obj[i].name + " in your bag.";
+//            }else{
+//                text = "Your bag is full.";
+//            }
+//            gp.ui.addMessage(text);
+//            gp.obj[i] = null;
         }
     }
 
