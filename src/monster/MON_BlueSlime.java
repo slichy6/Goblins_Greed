@@ -12,7 +12,7 @@ public class MON_BlueSlime extends Characters {
     public MON_BlueSlime(GamePanel gp) {
         super(gp);
         this.gp=gp;
-        type = type_monster; // this is to ensure that only monsters can harm the player character and not the npcs
+        type = 2; // this is to ensure that only monsters can harm the player character and not the npcs
         name = "Green Slime";
         speed = 1;
         maxLife = 3;

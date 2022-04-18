@@ -1,7 +1,6 @@
 package characters;
 
-import main.GamePanel;
-import main.UtilityTool;
+import main.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
