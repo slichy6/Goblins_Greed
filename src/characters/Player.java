@@ -270,16 +270,6 @@ public class Player extends Characters{
                     break;
 
             }
-
-//            if(inventory .size() != inventorySize) {
-//                inventory.add(gp.obj[i]);
-//                gp.playSE(10);
-//                text = "Stashed " + gp.obj[i].name + " in your bag.";
-//            }else{
-//                text = "Your bag is full.";
-//            }
-//            gp.ui.addMessage(text);
-//            gp.obj[i] = null;
         }
     }
 
